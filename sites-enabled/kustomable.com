@@ -32,15 +32,15 @@ server {
     include forge-conf/kustomable.com/server/*;
 
     location / {
-	include static_cache.inc;
+	#include static_cache.inc;
         proxy_pass http://411833_app;
 	include proxy_params;
     }
     location ~* ^.+\.(jpg|jpeg|gif|png|ico|svg|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|odt|ods|odp|odf|tar|wav|bmp|rtf|js|mp3|avi|mpeg|flv|html|htm)$ {
-        include static_cache.inc;
+        #include static_cache.inc;
         proxy_pass http://411833_app;
         include proxy_params;
-	proxy_ignore_headers Cache-Control Set-Cookie;
+	proxy_ignore_headers Cache-Control;
     }
 
 
