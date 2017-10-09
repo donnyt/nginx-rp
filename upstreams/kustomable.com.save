@@ -1,4 +1,0 @@
-upstream 411833_app {
-    server st4g1ng.kustomable.com:80;
-}
-

@@ -1,1 +1,3 @@
-/etc/nginx/sites-available/catch-all
+server {
+	return 404;
+}
