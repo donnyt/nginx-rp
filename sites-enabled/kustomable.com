@@ -35,9 +35,12 @@ server {
 	#include static_cache.inc;
         proxy_pass http://411833_app;
 	include proxy_params;
+	add_header Pragma "no-cache";
     }
-    location ~* ^.+\.(jpg|jpeg|gif|png|ico|svg|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|odt|ods|odp|odf|tar|wav|bmp|rtf|js|mp3|avi|mpeg|flv|html|htm)$ {
-        #include static_cache.inc;
+
+
+    location ~* ^.+\.(jpg|jpeg|gif|png|ico|svg|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|odt|ods|odp|odf|tar|wav|bmp|rtf|js|mp3|avi|mpeg|flv|html|htm|woff|woff2|ttf)$ {
+        include static_cache.inc;
         proxy_pass http://411833_app;
         include proxy_params;
 	proxy_ignore_headers Cache-Control;

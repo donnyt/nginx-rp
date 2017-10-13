@@ -30,15 +30,23 @@ server {
 
     # FORGE CONFIG (DOT NOT REMOVE!)
     include forge-conf/kustomable.com/server/*;
+    #set $no_cache "0";
+
+ #       if ($request_method = "POST") {
+ #               set $no_cache 1;
+ #       }
 
     location / {
 	#include static_cache.inc;
         proxy_pass http://411833_app;
 	include proxy_params;
 	add_header Pragma "no-cache";
+
     }
 
-
+#	if ($request_uri ~ "csrf") {#
+#		set $no_cache 1;
+#	}
     location ~* ^.+\.(jpg|jpeg|gif|png|ico|svg|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|odt|ods|odp|odf|tar|wav|bmp|rtf|js|mp3|avi|mpeg|flv|html|htm|woff|woff2|ttf)$ {
         include static_cache.inc;
         proxy_pass http://411833_app;
