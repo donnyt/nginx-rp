@@ -1,5 +1,5 @@
 # FORGE CONFIG (DOT NOT REMOVE!)
-include forge-conf/kustomable.com/before/*;
+#include forge-conf/kustomable.com/before/*;
 
 server {
     listen 443 ssl http2;
@@ -34,7 +34,6 @@ server {
     location = /favicon.ico { access_log off; log_not_found off; }
     location = /robots.txt  { access_log off; log_not_found off; }
 
-    access_log off;
     error_log  /var/log/nginx/kustomable.com-error.log error;
 
     error_page 404 /index.php;
