@@ -1,0 +1,59 @@
+# FORGE CONFIG (DOT NOT REMOVE!)
+#include forge-conf/kustomable.com/before/*;
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name .kustomable.com .custom.id;
+    root /home/forge/kustomable.com/public;
+
+    # FORGE SSL (DO NOT REMOVE!)
+    ssl_certificate /etc/nginx/ssl/kustomable.com/256956/server.crt;
+    ssl_certificate_key /etc/nginx/ssl/kustomable.com/256956/server.key;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+    ssl_prefer_server_ciphers on;
+    ssl_dhparam /etc/nginx/dhparams.pem;
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
+
+    index index.html index.htm index.php;
+
+    charset utf-8;
+
+    # FORGE CONFIG (DOT NOT REMOVE!)
+    include forge-conf/kustomable.com/server/*;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    error_log  /var/log/nginx/kustomable.com-error.log error;
+
+    error_page 404 /index.php;
+
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+    
+    #leverage browser caching
+    location ~*  \.(jpg|jpeg|png|gif|ico|css|js|woff2)$ {
+        expires 365d;
+    }
+}
+
+# FORGE CONFIG (DOT NOT REMOVE!)
+include forge-conf/kustomable.com/after/*;
