@@ -10,7 +10,7 @@ include upstreams/kustomable.com;
 
 server {
     listen 80;
-    server_name kustomable.com;
+    server_name kustomable.com www.kustomable.com;
     return 301 https://kustomable.com$request_uri;
 }
 
