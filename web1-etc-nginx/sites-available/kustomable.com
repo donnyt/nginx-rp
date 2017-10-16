@@ -48,11 +48,7 @@ server {
     location ~ /\.ht {
         deny all;
     }
-    
-    #leverage browser caching
-    location ~*  \.(jpg|jpeg|png|gif|ico|css|js|woff2)$ {
-        expires 365d;
-    }
+
 }
 
 # FORGE CONFIG (DOT NOT REMOVE!)
